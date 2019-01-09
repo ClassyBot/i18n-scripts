@@ -23,9 +23,9 @@ pushd cp-translations/build/
 			for locale in [a-z]*; do
 				echo "locale: $locale"
 				pushd $locale
-					msgfmt "$project-$locale.po" -o "$project-$locale.mo"
+					msgfmt "$locale.po" -o "$locale.mo"
 					zip -9 -j "$locale.zip" \
-						"$project-$locale.po" "$project-$locale.mo"
+						"$locale.po" "$locale.mo"
 					cp -va "$locale.zip" ../../1.0.0/
 				popd
 			done
