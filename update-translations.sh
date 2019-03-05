@@ -11,7 +11,6 @@ cd "$(dirname "$0")"
 # cp-i18n-rsync: pull translations over from the GlotPress server
 
 rsync \
-	-e 'ssh cp-i18n-rsync' \
 	-rltv --delete \
 	cp-i18n-rsync:/tmp/cp-translations/ \
 	./cp-translations/
@@ -35,6 +34,12 @@ pushd cp-translations/build/
 	done
 popd
 
+# classicpress_api-v1_*: push translations over to the API server
+
 rsync -rltv --delete \
 	cp-translations/api/ \
-	~/api-v1.classicpress.net/v1/translations/
+	cp-update-translations-api-v1-test:/www/src/ClassicPress-APIs_api-v1-test/v1/translations/
+
+rsync -rltv --delete \
+	cp-translations/api/ \
+	cp-update-translations-api-v1:/www/src/ClassicPress-APIs_api-v1/v1/translations/
